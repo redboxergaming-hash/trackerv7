@@ -1,173 +1,52 @@
-diff --git a/index.html b/index.html
-index 3740b4b45169ba5db2eefaab5f0fb59675105ec3..04202ec0ff94631f9c175fdde059cf3d0e08405c 100644
---- a/index.html
-+++ b/index.html
-@@ -50,50 +50,55 @@
-               <select id="personPicker"></select>
-             </label>
-             <label>
-               Date
-               <input id="datePicker" type="date" />
-             </label>
-           </div>
-           <div id="dashboardSummary" class="summary"></div>
-           <div id="entriesTableContainer"></div>
-         </section>
- 
-         <section id="screen-add" class="screen" aria-labelledby="addTitle">
-           <h2 id="addTitle">Manual Add</h2>
-           <div class="card add-card">
-             <div class="inline-controls">
-               <label>
-                 Person
-                 <select id="addPersonPicker"></select>
-               </label>
-               <label>
-                 Time
-                 <input id="addTime" type="time" />
-               </label>
-             </div>
- 
-+            <section>
-+              <h3>Meals</h3>
-+              <div id="mealTemplatesRow" class="meal-templates-row" aria-label="Meal templates"></div>
-+            </section>
-+
-             <section>
-               <h3>Favorites</h3>
-               <div id="favoriteList" class="suggestions"></div>
-             </section>
- 
-             <section>
-               <h3>Recent items</h3>
-               <div id="recentList" class="suggestions"></div>
-             </section>
- 
-             <label>
-               Search foods
-               <input id="foodSearchInput" type="search" placeholder="Search favorites, recent, and built-in foods" />
-             </label>
- 
- 
-             <section>
-               <h3>Generic categories</h3>
-               <div id="genericCategoryFilters" class="category-filters" role="group" aria-label="Generic food categories">
-                 <button type="button" class="secondary active" data-category="All">All</button>
-                 <button type="button" class="secondary" data-category="Fruits">Fruits</button>
-                 <button type="button" class="secondary" data-category="Vegetables">Vegetables</button>
-                 <button type="button" class="secondary" data-category="Meat">Meat</button>
-                 <button type="button" class="secondary" data-category="Dairy">Dairy</button>
-                 <button type="button" class="secondary" data-category="Grains">Grains</button>
-@@ -226,71 +231,112 @@
-           </div>
-           <div id="nutritionOverviewList" class="stack"></div>
-         </section>
- 
-         <section id="screen-settings" class="screen" aria-labelledby="settingsTitle">
-           <h2 id="settingsTitle">Settings · Persons</h2>
- 
-           <form id="personForm" class="card form-grid">
-             <input id="personId" type="hidden" />
-             <label>
-               Name
-               <input id="personName" type="text" required maxlength="60" placeholder="e.g. Alex" />
-             </label>
-             <label>
-               Daily kcal goal
-               <input id="personKcalGoal" type="number" inputmode="numeric" min="800" max="12000" step="1" required />
-             </label>
-             <fieldset class="macro-fieldset">
-               <legend>Optional macro targets (g/day)</legend>
-               <div class="inline-controls">
-                 <label>P <input id="personMacroP" type="number" min="0" max="1000" step="1" /></label>
-                 <label>C <input id="personMacroC" type="number" min="0" max="1500" step="1" /></label>
-                 <label>F <input id="personMacroF" type="number" min="0" max="600" step="1" /></label>
-               </div>
-             </fieldset>
-+            <fieldset class="macro-fieldset">
-+              <legend>Healthy habit goals</legend>
-+              <div class="inline-controls">
-+                <label>Water (ml/day) <input id="personWaterGoalMl" type="number" min="250" max="10000" step="50" /></label>
-+                <label>Exercise (min/day) <input id="personExerciseGoalMin" type="number" min="5" max="600" step="5" /></label>
-+              </div>
-+            </fieldset>
-             <div class="row-actions">
-               <button type="submit" id="savePersonBtn">Save Person</button>
-               <button type="button" id="cancelEditBtn" class="secondary" hidden>Cancel edit</button>
-             </div>
-           </form>
- 
-           <div id="settingsPersons" class="stack"></div>
- 
-           <section class="card form-grid" aria-labelledby="dataToolsTitle">
-             <h3 id="dataToolsTitle">Data management</h3>
-             <div class="row-actions">
-               <button type="button" id="exportDataBtn" class="secondary">Export all data</button>
-               <label class="file-input-label" for="importDataInput">Import JSON</label>
-               <input id="importDataInput" type="file" accept="application/json" hidden />
-               <button type="button" id="deleteAllDataBtn" class="danger">Delete all data</button>
-             </div>
-             <p id="settingsDataStatus" class="muted"></p>
-           </section>
- 
-+          <section class="card form-grid" aria-labelledby="dashboardCustomizeTitle">
-+            <h3 id="dashboardCustomizeTitle">Dashboard</h3>
-+            <p class="muted tiny">Show/hide cards and change order per selected person.</p>
-+            <div id="settingsDashboardLayout" class="stack"></div>
-+            <div class="row-actions">
-+              <button type="button" id="saveDashboardLayoutBtn">Save dashboard layout</button>
-+            </div>
-+          </section>
-+
-           <button id="seedBtn" class="secondary">Reset Sample Data</button>
-         </section>
-       </main>
-     </div>
- 
-     <dialog id="portionDialog">
-       <h3 id="portionFoodName"></h3>
-       <p id="portionMeta" class="muted"></p>
-       <div id="portionPresetButtons" class="inline-controls"></div>
-       <label>
-         Amount (grams)
-         <input id="portionGrams" type="number" min="1" step="1" value="100" />
-       </label>
-       <div class="row-actions">
-         <button id="confirmPortionBtn">Log Entry</button>
-         <button id="cancelPortionBtn" class="secondary">Cancel</button>
-       </div>
-     </dialog>
- 
-+    <dialog id="mealTemplateDialog">
-+      <h3>Create Meal Template</h3>
-+      <form id="mealTemplateForm" class="form-grid">
-+        <label>
-+          Meal name
-+          <input id="mealTemplateName" type="text" maxlength="80" required placeholder="e.g. Breakfast Standard" />
-+        </label>
-+        <div class="row-actions">
-+          <button type="button" id="mealTemplateAddItemBtn" class="secondary">Add item</button>
-+        </div>
-+        <div id="mealTemplatePicker" class="meal-template-picker" hidden>
-+          <label>
-+            Search foods
-+            <input id="mealTemplateSearchInput" type="search" placeholder="Search favorites, recents, and built-in foods" />
-+          </label>
-+          <div id="mealTemplateSearchResults" class="suggestions"></div>
-+        </div>
-+        <div id="mealTemplateItems" class="stack"></div>
-+        <div class="row-actions">
-+          <button type="submit" id="saveMealTemplateBtn">Save meal</button>
-+          <button type="button" id="cancelMealTemplateBtn" class="secondary">Cancel</button>
-+        </div>
-+      </form>
-+    </dialog>
-+
-     <dialog id="installDialog">
-       <p>Add to Home Screen in Safari: Share → Add to Home Screen.</p>
-       <button id="closeInstallDialog">Close</button>
-     </dialog>
- 
-     <script type="module" src="app.js"></script>
-   </body>
- </html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Macro Tracker Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <h1>Macro Tracker Dashboard</h1>
+      </header>
+
+      <main class="content">
+        <section class="card">
+          <div class="row-space">
+            <h2>Today</h2>
+            <button id="exportDayBtn" type="button" class="secondary-btn">Export day</button>
+          </div>
+          <div class="inline-filters">
+            <label>
+              Person
+              <select id="reportPersonPicker">
+                <option value="person-1">Alex</option>
+              </select>
+            </label>
+            <label>
+              Date
+              <input id="reportDatePicker" type="date" />
+            </label>
+          </div>
+          <p id="dashboardStatus" class="toast" hidden></p>
+          <div id="kpiRow" class="kpi-row"></div>
+        </section>
+
+        <section class="card">
+          <h2>Macro Cards</h2>
+          <div id="macroCards" class="macro-grid"></div>
+        </section>
+
+        <section class="card">
+          <h2>Healthy Habits</h2>
+          <div id="habitCards" class="habit-grid"></div>
+          <div id="fastingCard" class="fasting-card"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
