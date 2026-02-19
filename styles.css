@@ -1,139 +1,175 @@
-:root {
-  --bg: #f6f8fc;
-  --surface: #ffffff;
-  --text: #0f172a;
-  --muted: #64748b;
-  --border: #d8e1ee;
-  --accent: #4f46e5;
-  --ok: #16a34a;
-  --warn: #f59e0b;
-  --radius: 14px;
-}
-
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  color: var(--text);
-  background: linear-gradient(180deg, #eef2ff, var(--bg));
-}
-
-.app-shell { max-width: 980px; margin: 0 auto; padding: 16px; }
-.topbar h1 { margin: 6px 0 14px; font-size: 1.5rem; }
-.content { display: grid; gap: 12px; }
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
-}
-.card h2 { margin: 0 0 12px; font-size: 1.05rem; }
-
-.kpi-row, .macro-grid, .habit-grid { display: grid; gap: 10px; }
-.kpi-row { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-.macro-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-.habit-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 10px; }
-
-.pill, .tile {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px;
-  background: #fff;
-}
-.tile .label { color: var(--muted); font-size: 0.85rem; }
-.tile .value { font-weight: 700; font-size: 1.15rem; margin-top: 4px; }
-.progress {
-  height: 8px;
-  width: 100%;
-  background: #eef2f7;
-  border-radius: 999px;
-  overflow: hidden;
-  margin-top: 8px;
-}
-.progress > span { display: block; height: 100%; background: var(--accent); }
-.good > span { background: var(--ok); }
-.warn > span { background: var(--warn); }
-
-.fasting-card h3 { margin: 8px 0; }
-.fasting-tile button {
-  margin-top: 12px;
-  border: none;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
-  padding: 10px 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.fasting-presets {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.preset-chip {
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--text);
-  padding: 6px 10px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.preset-chip.active {
-  border-color: var(--accent);
-  background: #eef2ff;
-  color: var(--accent);
-}
-
-#fastingTargetLabel {
-  margin-top: 6px;
-}
-
-.row-space {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.inline-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.inline-filters label {
-  display: grid;
-  gap: 4px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.inline-filters select,
-.inline-filters input {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 6px 8px;
-}
-
-.secondary-btn {
-  border: 1px solid var(--border);
-  background: #fff;
-  border-radius: 8px;
-  padding: 7px 10px;
-  cursor: pointer;
-}
-
-.toast {
-  margin: 0 0 10px;
-  padding: 8px 10px;
-  border: 1px solid #bbf7d0;
-  background: #ecfdf5;
-  color: #166534;
-  border-radius: 8px;
-}
+diff --git a/styles.css b/styles.css
+index b6aaab8b5deb4c1cf28e98dce24de823f74f748e..11ce1793491e2ec5c7c95271154271a220cf04c6 100644
+--- a/styles.css
++++ b/styles.css
+@@ -432,25 +432,170 @@ progress { width: 100%; height: 10px; accent-color: var(--accent); }
+ 
+ .streak-card,
+ .habits-card {
+   border: 1px solid var(--border);
+   border-radius: var(--radius-md);
+   box-shadow: var(--shadow-1);
+   background: var(--surface);
+   padding: 12px;
+   margin-bottom: 12px;
+ }
+ 
+ .habit-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+   gap: 8px;
+ }
+ 
+ @media (prefers-color-scheme: dark) {
+   .hero-calories { background: #0c2a45; }
+   .hero-remaining { background: #0f2e2b; }
+   .macro-protein { background: #123229; }
+   .macro-carbs { background: #3a2612; }
+   .macro-fat { background: #40350f; }
+   .macro-track { background: rgba(226, 232, 240, 0.18); }
+ }
++
++
++.settings-dashboard-row {
++  display: grid;
++  grid-template-columns: 1fr auto;
++  gap: 8px;
++  align-items: center;
++  border: 1px solid var(--border);
++  border-radius: var(--radius-sm);
++  padding: 8px;
++  background: var(--surface-soft);
++}
++
++.settings-dashboard-toggle {
++  display: flex;
++  align-items: center;
++  gap: 8px;
++  margin: 0;
++}
++.meal-templates-row {
++  display: grid;
++  grid-auto-flow: column;
++  grid-auto-columns: minmax(180px, 220px);
++  gap: 8px;
++  overflow-x: auto;
++  padding-bottom: 4px;
++}
++
++.meal-template-card {
++  display: grid;
++  gap: 4px;
++  text-align: left;
++  white-space: normal;
++}
++
++.meal-template-picker {
++  border: 1px solid var(--border);
++  border-radius: var(--radius-sm);
++  padding: 10px;
++  background: var(--surface-soft);
++}
++
++.meal-template-item-row {
++  border: 1px solid var(--border);
++  border-radius: var(--radius-sm);
++  padding: 10px;
++  display: grid;
++  gap: 8px;
++}
++
++.meal-template-item-top {
++  display: flex;
++  justify-content: space-between;
++  gap: 8px;
++  align-items: center;
++}
++
++.meal-template-card-shell {
++  display: grid;
++  gap: 6px;
++}
++
++.meal-template-actions {
++  display: flex;
++  gap: 6px;
++  flex-wrap: wrap;
++}
++
++.tiny-action {
++  min-height: 32px;
++  padding: 6px 8px;
++  font-size: var(--font-size-1);
++}
++
++.habit-actions {
++  margin-top: 6px;
++}
++
++.habit-grid > article {
++  border: 1px solid var(--border);
++  border-radius: var(--radius-sm);
++  padding: 10px;
++  background: var(--surface-soft);
++}
++
++.macro-breakdown-card {
++  margin-top: 12px;
++}
++
++.macro-breakdown-wrap {
++  display: grid;
++  gap: 10px;
++  align-items: center;
++}
++
++.macro-breakdown-chart {
++  width: 180px;
++  margin: 0 auto;
++}
++
++.macro-breakdown-chart svg {
++  display: block;
++  width: 100%;
++  height: auto;
++}
++
++.macro-breakdown-center-label {
++  font-size: 10px;
++  fill: var(--muted);
++}
++
++.macro-breakdown-center-value {
++  font-size: 18px;
++  font-weight: 700;
++  fill: var(--text);
++}
++
++.macro-breakdown-legend {
++  display: grid;
++  gap: 8px;
++}
++
++.macro-breakdown-row {
++  display: flex;
++  justify-content: space-between;
++  align-items: center;
++}
++
++.macro-breakdown-label {
++  display: inline-flex;
++  align-items: center;
++  gap: 8px;
++  font-weight: 600;
++}
++
++.macro-breakdown-dot {
++  width: 10px;
++  height: 10px;
++  border-radius: 50%;
++  display: inline-block;
++}
++
++.macro-breakdown-dot.carbs { background: #f97316; }
++.macro-breakdown-dot.protein { background: #16a34a; }
++.macro-breakdown-dot.fat { background: #eab308; }
