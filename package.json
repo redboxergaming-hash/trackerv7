@@ -1,0 +1,25 @@
+diff --git a/package.json b/package.json
+index 0ee480e0acb6552a73e6b00b511548212e1325f3..fb7d23de7908aaacfc4eb36325385e0c0b2f5784 100644
+--- a/package.json
++++ b/package.json
+@@ -1,15 +1,19 @@
+ {
+   "name": "tracker-pwa",
+   "version": "1.0.0",
+   "private": true,
+   "type": "module",
+   "scripts": {
+     "test": "node --test math.test.js",
+     "smoke:offline": "node playwright/smoke-offline.mjs",
+     "playwright:install": "node scripts/playwright-install.mjs",
+-    "playwright:install:deps": "node scripts/playwright-install.mjs --with-deps chromium webkit"
++    "playwright:install:deps": "node scripts/playwright-install.mjs --with-deps chromium webkit",
++    "pw:install": "playwright install --with-deps",
++    "pw:preflight": "node playwright/preflight.mjs",
++    "pw:setup": "node scripts/pw-setup.mjs",
++    "meal:smoke": "node playwright/meal-templates-smoke.mjs"
+   },
+   "devDependencies": {
+     "playwright": "^1.55.0"
+   }
+ }
